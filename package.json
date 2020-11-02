@@ -1,0 +1,23 @@
+{
+  "name": "auto-store",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "start": "node backend/server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/oyeyipo45/AutoStore.git"
+  },
+  "author": "Damilola Oyeyipo",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/oyeyipo45/AutoStore/issues"
+  },
+  "homepage": "https://github.com/oyeyipo45/AutoStore#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
