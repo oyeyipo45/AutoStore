@@ -2,6 +2,7 @@ import express from 'express';
 import dotenv from 'dotenv';
 import connectDb from './config/db.js';
 import colors from 'colors';
+import userRoutes from './routes/userRoutes.js'
 import productRoutes from './routes/productRoutes.js'
 import {notFound, errorHandler } from './middleware/errorMiddlerware.js'
 import morgan from 'morgan'
@@ -14,12 +15,14 @@ dotenv.config();
 connectDb();
 
 const app = express();
+app.use(express.json());
 
 app.get('/', (req, res) => {
 	res.send('server is running');
 });
 
 app.use(`/api/products`, productRoutes)
+app.use(`/api/users`, userRoutes)
 
 app.use(notFound)
 app.use(errorHandler)
