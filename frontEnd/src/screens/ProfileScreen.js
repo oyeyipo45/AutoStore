@@ -14,7 +14,8 @@ const ProfileScreen = ({ location, history }) => {
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
 	const [confirmPassword, setConfirmPassword] = useState('');
-	const [message, setMessage] = useState(null);
+    const [message, setMessage] = useState(null);
+    
 
 	const dispatch = useDispatch();
 
@@ -27,7 +28,7 @@ const ProfileScreen = ({ location, history }) => {
 	const userUpdateProfile = useSelector((state) => state.userUpdateProfile);
 	const { success } = userUpdateProfile;
 
-    
+
 	useEffect(() => {
 		if (!userInfo) {
 			history.push('/login');

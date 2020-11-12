@@ -7,6 +7,12 @@ import generateToken from '../utils/generateToken.js';
 // @access Public
 const authUser = asyncHandler(async (req, res) => {
 	const { email, password } = req.body;
+
+	// Validate email and password
+	if (!email || !password) {
+		return res.status(400).json('Please provide an email and password');
+	}
+
 	const user = await User.findOne({ email });
 
 	if (user && (await user.matchPassword(password))) {
@@ -27,7 +33,35 @@ const authUser = asyncHandler(async (req, res) => {
 // @route POST /api/user
 // @access Public
 const registerUser = asyncHandler(async (req, res) => {
-	const { name, email, password } = req.body;
+	const { name, email, password, confirmPassword } = req.body;
+
+	// Validate name, email and password
+	if (!name || !email || !password || !confirmPassword) {
+		return res.status(400).json({
+			status: 400,
+			message:'Please Fill All Fields'});
+	}
+
+	if (password !== confirmPassword) {
+		return res.status(400).json({
+			status: 400,
+			message:'Password do not match'});
+	}
+
+	// if (!name.trim().match(/^[A-Za-z]+$/)) {
+	// 	return res.status(400).json({
+	// 		status: 400,
+	// 		message:'Name must  be alphabets'});
+	// }
+
+	  const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+	  if (!re.test(email)) {
+		return res.status(400).json({
+		  status: 400,
+		  message: "Email do not match correct format",
+		});
+	  }
+
 	const userExists = await User.findOne({ email });
 
 	if (userExists) {
@@ -55,8 +89,8 @@ const registerUser = asyncHandler(async (req, res) => {
 	}
 });
 
-// @desc Auth user profile
-// @route POST /api/users/login
+// @desc Getuser profile
+// @route GET /api/users/login
 // @access Private
 const getUserProfile = asyncHandler(async (req, res) => {
 	const user = await User.findById(req.user._id);
