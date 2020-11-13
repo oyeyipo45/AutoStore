@@ -1,18 +1,14 @@
-import React, { useState } from 'react';
+import React, { useEffect } from 'react';
 import { Row, Col, Card, ListGroup, Image, Button } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
-import { saveShippingAddress } from './../actions/cartActions';
 import CheckOutSteps from '../components/CheckOutSteps';
 import Message from './../components/Message';
 import { Link } from 'react-router-dom';
+import { createOrder } from './../actions/orderActions';
 
-const PlaceOrderScreen = () => {
+const PlaceOrderScreen = ({ history }) => {
 	const cart = useSelector((state) => state.cart);
-
-	const PlaceOrderHandler = (e) => {
-		e.prevendDefault();
-		console.log('good');
-	};
+	const dispatch = useDispatch();
 
 	const addDecimals = (num) => {
 		return (Math.round(num * 100) / 100).toFixed(2);
@@ -32,24 +28,48 @@ const PlaceOrderScreen = () => {
 		Number(cart.taxPrice)
 	).toFixed(2);
 
+	const orderCreate = useSelector((state) => state.orderCreate);
+	const { order, success, error } = orderCreate;
+	useEffect(() => {
+		if (success) {
+			history.push(`/order/${order._id}`);
+		}
+		// eslint-disable-next-line
+	}, [history, success]);
+	const placeOrderHandler = (e) => {
+		e.preventDefault();
+		dispatch(
+			createOrder({
+				orderItems: cart.cartItems,
+				shippingAddress: cart.shippingAddress,
+				paymentMethod: cart.paymentMethod,
+				itemsPrice: cart.itemsPrice,
+				shippingPrice: cart.shippingPrice,
+				taxPrice: cart.taxPrice,
+				totalPrice: cart.totalPrice,
+			})
+		);
+	};
+
 	return (
-		<div>
+		<>
 			<CheckOutSteps step1 step2 step3 step4 />
 			<Row>
 				<Col md={8}>
 					<ListGroup variant='flush'>
 						<ListGroup.Item>
-							<h2> Shipping</h2>
+							<h2>Shipping</h2>
 							<p>
-								<strong>Address</strong>
-								{cart.shippingAddress.address},{cart.shippingAddress.city},
-								{cart.shippingAddress.postalCode},{cart.shippingAddress.country}
+								<strong>Address:</strong>
+								{cart.shippingAddress.address}, {cart.shippingAddress.city}{' '}
+								{cart.shippingAddress.postalCode},{' '}
+								{cart.shippingAddress.country}
 							</p>
 						</ListGroup.Item>
 
 						<ListGroup.Item>
 							<h2>Payment Method</h2>
-							<strong> Method: </strong>
+							<strong>Method: </strong>
 							{cart.paymentMethod}
 						</ListGroup.Item>
 
@@ -58,7 +78,7 @@ const PlaceOrderScreen = () => {
 							{cart.cartItems.length === 0 ? (
 								<Message>Your cart is empty</Message>
 							) : (
-								<ListGroup.Item variant='flush'>
+								<ListGroup variant='flush'>
 									{cart.cartItems.map((item, index) => (
 										<ListGroup.Item key={index}>
 											<Row>
@@ -81,7 +101,7 @@ const PlaceOrderScreen = () => {
 											</Row>
 										</ListGroup.Item>
 									))}
-								</ListGroup.Item>
+								</ListGroup>
 							)}
 						</ListGroup.Item>
 					</ListGroup>
@@ -117,20 +137,23 @@ const PlaceOrderScreen = () => {
 								</Row>
 							</ListGroup.Item>
 							<ListGroup.Item>
+								{error && <Message variant='danger'>{error}</Message>}
+							</ListGroup.Item>
+							<ListGroup.Item>
 								<Button
 									type='button'
-									className='btn-black'
+									className='btn-block'
 									disabled={cart.cartItems === 0}
-									onClick={PlaceOrderHandler}
+									onClick={placeOrderHandler}
 								>
-									Place
+									Place Order
 								</Button>
 							</ListGroup.Item>
 						</ListGroup>
 					</Card>
 				</Col>
 			</Row>
-		</div>
+		</>
 	);
 };
 
