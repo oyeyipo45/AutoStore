@@ -2,9 +2,9 @@ import User from '../models/userModel.js';
 import asyncHandler from 'express-async-handler';
 import generateToken from '../utils/generateToken.js';
 
-// @desc Auth user and get token
-// @route POST /api/users/login
-// @access Public
+// @desc     Auth user and get token
+// @route    POST /api/users/login
+// @access   Public
 const authUser = asyncHandler(async (req, res) => {
 	const { email, password } = req.body;
 
@@ -29,9 +29,9 @@ const authUser = asyncHandler(async (req, res) => {
 	}
 });
 
-// @desc Register  A new user
-// @route POST /api/user
-// @access Public
+// @desc    Register  A new user
+// @route   POST /api/user
+// @access  Public
 const registerUser = asyncHandler(async (req, res) => {
 	const { name, email, password, confirmPassword } = req.body;
 
@@ -89,9 +89,9 @@ const registerUser = asyncHandler(async (req, res) => {
 	}
 });
 
-// @desc Getuser profile
-// @route GET /api/users/login
-// @access Private
+// @desc 	Get user profile
+// @route	GET /api/users/login
+// @access  Private
 const getUserProfile = asyncHandler(async (req, res) => {
 	const user = await User.findById(req.user._id);
 
@@ -108,9 +108,9 @@ const getUserProfile = asyncHandler(async (req, res) => {
 	}
 });
 
-// @desc Update user profile
-// @route PUT /api/users/profile
-// @access Private
+// @desc    Update user profile
+// @route   PUT /api/users/profile
+// @access  Private
 const updateUserProfile = asyncHandler(async (req, res) => {
 	const user = await User.findById(req.user._id);
 
@@ -136,4 +136,16 @@ const updateUserProfile = asyncHandler(async (req, res) => {
 	}
 });
 
-export { authUser, getUserProfile, registerUser, updateUserProfile };
+
+
+
+
+// @desc    Get all users
+// @route   GET /api/users
+// @access  Private
+const getUsers = asyncHandler(async (req, res) => {
+	const users = await User.find({});
+	res.json(users)
+});
+
+export { authUser, getUserProfile, registerUser, updateUserProfile, getUsers }
