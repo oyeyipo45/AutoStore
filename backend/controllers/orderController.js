@@ -27,34 +27,59 @@ const addOrderItems = asyncHandler(async (req, res) => {
 			taxPrice,
 			shippingPrice,
 			totalPrice,
-        });
-        
-        const createdOrder = await order.save()
-        res.status(201).json(createdOrder)
+		});
+
+		const createdOrder = await order.save();
+		res.status(201).json(createdOrder);
 	}
 });
-
-
-
-
 
 // @desc     Get Order ID
 // @route    GET /api/orders/:id
 // @access   Private
 const getOrderById = asyncHandler(async (req, res) => {
-	const order = await  Order.findById(req.params.id).populate('user', 'name email')
+	const order = await Order.findById(req.params.id).populate(
+		'user',
+		'name email'
+	);
 
 	if (order) {
-		res.json(order)	
+		res.json(order);
 	} else {
-		res.status(404)
-		throw new Error('Order not Found')
+		res.status(404);
+		throw new Error('Order not Found');
 	}
-
 });
 
 
+// @desc     Update order To Paid
+// @route    GET /api/orders/:id/pay
+// @access   Private
+const updateOrderToPaid = asyncHandler(async (req, res) => {
+	console.log(req.body);
+	console.log(req.params.id);
+	const order = await Order.findById(req.params.id)
+
+	if (order) {
+		order.isPaid = true;
+		order.paidAt = Date.now();
+		order.paymentResult = {
+			id: req.body.id,
+			status: req.body.status,
+			update_time: req.body.update_time,
+			email_address: req.body.payer.email_address,
+		};
+
+		
+
+		const updatedOrder = await order.save();
+
+		res.json(updatedOrder);
+	} else {
+		res.status(404);
+		throw new Error('Order not Found');
+	}
+});
 
 
-
-export { addOrderItems, getOrderById };
+export { addOrderItems, getOrderById, updateOrderToPaid };
