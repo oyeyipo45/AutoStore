@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Row, Col, Card, ListGroup, Image, Button } from 'react-bootstrap';
+import { Row, Col, Card, ListGroup, Image} from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
-import CheckOutSteps from '../components/CheckOutSteps';
 import Message from './../components/Message';
 import { Link } from 'react-router-dom';
 import { getOrderDetails, payOrder } from './../actions/orderActions';
