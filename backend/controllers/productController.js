@@ -47,13 +47,15 @@ const createProduct = asyncHandler(async (req, res) => {
 		image: '/images/sample/jpg',
 		brand: 'sample brand',
 		category: 'sample category',
-		countInStock: 0,
-		numReviews: 0,
+		countInStock:  0,
+		numReviews:  0,
 		description: 'sample description',
 	});
 	const createdProduct = await product.save();
 	res.status(201).json(createdProduct);
 });
+
+
 
 // @desc 		Update a Product
 // @route 		PUT /api/products
