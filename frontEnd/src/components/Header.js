@@ -10,12 +10,14 @@ const Header = () => {
 	const userLogin = useSelector((state) => state.userLogin);
 	const { userInfo } = userLogin;
 
+
 	const dispatch = useDispatch();
 
 	const logoutHandler = (e) => {
 		e.preventDefault();
 		dispatch(logout());
 	};
+
 	return (
 		<header>
 			<Navbar bg='dark' variant='dark' expand='lg' collapseOnSelect>

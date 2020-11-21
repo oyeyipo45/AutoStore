@@ -2,7 +2,7 @@ import Order from '../models/orderModel.js';
 import asyncHandler from 'express-async-handler';
 
 // @desc     	Create New Order
-// @route    	POST /api/orders
+// @route    	POST /api/v1/orders
 // @access   	Private
 const addOrderItems = asyncHandler(async (req, res) => {
 	const {
@@ -35,7 +35,7 @@ const addOrderItems = asyncHandler(async (req, res) => {
 });
 
 // @desc     	Get Order ID
-// @route    	GET /api/orders/:id
+// @route    	GET /api/v1/orders/:id
 // @access   	Private
 const getOrderById = asyncHandler(async (req, res) => {
 	const order = await Order.findById(req.params.id).populate(
@@ -52,7 +52,7 @@ const getOrderById = asyncHandler(async (req, res) => {
 });
 
 // @desc    	 Update order To Paid
-// @route   	 PUT /api/orders/:id/pay
+// @route   	 PUT /api/v1/orders/:id/pay
 // @access  	 Private
 const updateOrderToPaid = asyncHandler(async (req, res) => {
 	const order = await Order.findById(req.params.id);
@@ -77,7 +77,7 @@ const updateOrderToPaid = asyncHandler(async (req, res) => {
 });
 
 // @desc    	 Get logged In user orders
-// @route   	 GET /api/orders/myorders
+// @route   	 GET /api/v1/orders/myorders
 // @access  	 Private
 const getMyOrders = asyncHandler(async (req, res) => {
 	const orders = await Order.find({ user: req.user._id });
@@ -85,7 +85,7 @@ const getMyOrders = asyncHandler(async (req, res) => {
 });
 
 // @desc    	 Get all orders
-// @route   	 GET /api/orders/
+// @route   	 GET /api/v1/orders/
 // @access  	 Private
 const getOrders = asyncHandler(async (req, res) => {
 	const orders = await Order.find({}).populate('user', 'id name');
@@ -93,7 +93,7 @@ const getOrders = asyncHandler(async (req, res) => {
 });
 
 // @desc    	 Update order To Delivered
-// @route   	 PUT /api/orders/:id/deliver
+// @route   	 PUT /api/v1/orders/:id/deliver
 // @access  	 Private/Admin
 const updateOrderToDelivered = asyncHandler(async (req, res) => {
 	const order = await Order.findById(req.params.id);
@@ -119,6 +119,3 @@ export {
 	getOrders,
 	updateOrderToDelivered,
 };
-
-
-

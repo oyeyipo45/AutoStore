@@ -21,20 +21,28 @@ if (process.env.NODE_ENV === 'development') {
 }
 app.use(express.json());
 
-app.get('/', (req, res) => {
-	res.send('server is running');
-});
-
-app.use(`/api/products`, productRoutes);
-app.use(`/api/users`, userRoutes);
-app.use(`/api/orders`, orderRoutes);
-app.use('/api/upload', uploadRoutes);
-app.get('/api/config/paypal', (req, res) =>
+app.use(`/api/v1/products`, productRoutes);
+app.use(`/api/v1/users`, userRoutes);
+app.use(`/api/v1/orders`, orderRoutes);
+app.use('/api/v1/upload', uploadRoutes);
+app.get('/api/v1/config/paypal', (req, res) =>
 	res.send(process.env.PAYPAL_CLIENT_ID)
 );
 
 const __dirname = path.resolve();
 app.use('/uploads', express.static(path.join(__dirname, '/uploads')));
+
+if (process.env.NODE_ENV === 'production') {
+	app.use(express.static(path.join(__dirname, '/frontend/build')));
+
+	app.get('*', (req, res) =>
+		res.sendFile(path.resolve(__dirname, 'frontend', 'build', 'index.html'))
+	);
+} else {
+	app.get('/', (req, res) => {
+		res.send('server is running');
+	});
+}
 
 app.use(notFound);
 app.use(errorHandler);

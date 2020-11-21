@@ -1,12 +1,11 @@
 import Product from '../models/productModel.js';
 import asyncHandler from 'express-async-handler';
 
-
 // @desc 		Fetch All Products
-// @route 		GET /api/products
+// @route 		GET /api/v1/products
 // @access 		Public
 const getProducts = asyncHandler(async (req, res) => {
-	const pageSize = 2;
+	const pageSize = 10;
 	const page = Number(req.query.pageNumber) || 1;
 	const keyword = req.query.keyword
 		? {
@@ -24,9 +23,8 @@ const getProducts = asyncHandler(async (req, res) => {
 	res.json({ products, page, pages: Math.ceil(count / pageSize) });
 });
 
-
 // @desc        Fetch one Product
-// @route       GET /api/products/:id
+// @route       GET /api/v1/products/:id
 // @access 		Public
 const getProductById = asyncHandler(async (req, res) => {
 	const product = await Product.findById(req.params.id);
@@ -38,9 +36,8 @@ const getProductById = asyncHandler(async (req, res) => {
 	}
 });
 
-
 // @desc 		Delete a Product
-// @route 		DELETE /api/products/:id
+// @route 		DELETE /api/v1/products/:id
 // @access 		Private/admin
 const deleteProduct = asyncHandler(async (req, res) => {
 	const product = await Product.findById(req.params.id);
@@ -53,9 +50,8 @@ const deleteProduct = asyncHandler(async (req, res) => {
 	}
 });
 
-
 // @desc 		Create a Product
-// @route 		POST /api/products
+// @route 		POST /api/v1/products
 // @access 		Private/admin
 const createProduct = asyncHandler(async (req, res) => {
 	const product = new Product({
@@ -73,9 +69,8 @@ const createProduct = asyncHandler(async (req, res) => {
 	res.status(201).json(createdProduct);
 });
 
-
 // @desc 		Update a Product
-// @route 		PUT /api/products
+// @route 		PUT /api/v1/products
 // @access 		Private/admin
 const updateProduct = asyncHandler(async (req, res) => {
 	const {
@@ -106,9 +101,8 @@ const updateProduct = asyncHandler(async (req, res) => {
 	}
 });
 
-
-// @desc 		Crearte new Review
-// @route 		PUT /api/products/:id/reviews
+// @desc 		Create new Review
+// @route 		PUT /api/v1/products/:id/reviews
 // @access 		Private
 const createProductReview = asyncHandler(async (req, res) => {
 	const { rating, comment } = req.body;
@@ -145,6 +139,13 @@ const createProductReview = asyncHandler(async (req, res) => {
 	}
 });
 
+// @desc 		Get top Products
+// @route 		GET /api/v1/products/top
+// @access 		Public
+const getTopProducts = asyncHandler(async (req, res) => {
+	const products = await Product.find().sort({ rating: -1 }).limit(3);
+	res.json(products);
+});
 
 export {
 	getProducts,
@@ -153,7 +154,5 @@ export {
 	createProduct,
 	updateProduct,
 	createProductReview,
+	getTopProducts,
 };
-
-
- 
