@@ -1,7 +1,7 @@
 import path from 'path';
 import express from 'express';
 import dotenv from 'dotenv';
-import connectDb from './config/db.js';
+import connectDB from './config/db.js';
 import colors from 'colors';
 import userRoutes from './routes/userRoutes.js';
 import orderRoutes from './routes/orderRoutes.js';
@@ -12,7 +12,7 @@ import morgan from 'morgan';
 
 dotenv.config();
 
-connectDb();
+connectDB();
 
 const app = express();
 
