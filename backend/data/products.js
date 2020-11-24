@@ -1,5 +1,17 @@
 const products = [
 	{
+		name: 'RUNMUS Gaming Headset',
+		image: '/images/headphones.jpg',
+		description:
+			'RUNMUS Gaming Headset Xbox One Headset with 7.1 Surround Sound, PS4 Headset with Noise Canceling Mic & LED Light, Compatible with PC, PS4, Xbox One...',
+		brand: 'Runmus',
+		category: 'Electronics',
+		price: 89.99,
+		countInStock: 3.0,
+		rating: 3.0,
+		numReviews: 0,
+	},
+	{
 		name: 'Airpods Wireless Bluetooth Headphones',
 		image: '/images/airpods.jpg',
 		description:
@@ -60,6 +72,18 @@ const products = [
 		numReviews: 5.0,
 	},
 	{
+		name: 'Apple MacBook Pro 13.3-inch Laptop',
+		image: '/images/laptop.jpg',
+		description:
+			'Apple MacBook Pro MLL42LL/A 13.3-inch Laptop, 2.0GHz dual-core Intel Core i5, 8GB Ram, 256GB SSD, Retina Display, Space Gray  ',
+		brand: 'Apple',
+		category: 'Electronics',
+		price: 1299.99,
+		countInStock: 10.0,
+		rating: 2.0,
+		numReviews: 0,
+	},
+	{
 		name: 'Amazon Echo Dot 3rd Generation',
 		image: '/images/alexa.jpg',
 		description:
@@ -70,6 +94,55 @@ const products = [
 		countInStock: 12.0,
 		rating: 4.0,
 		numReviews: 2.0,
+	},
+
+	{
+		name: 'Airpods Wireless Bluetooth Headphones',
+		image: '/images/airpods.jpg',
+		description:
+			'Bluetooth technology lets you connect it with compatible devices wirelessly High-quality AAC audio offers immersive listening experience Built-in microphone allows you to take calls while working',
+		brand: 'Apple',
+		category: 'Electronics',
+		price: 89.99,
+		countInStock: 3.0,
+		rating: 3.0,
+		numReviews: 5,
+	},
+	{
+		name: 'iPhone 11 Pro 256GB Memory',
+		image: '/images/phone.jpg',
+		description:
+			'Introducing the iPhone 11 Pro. A transformative triple-camera system that adds tons of capability without complexity. An unprecedented leap in battery life',
+		brand: 'Apple',
+		category: 'Electronics',
+		price: 599.99,
+		countInStock: 10.0,
+		rating: 2.0,
+		numReviews: 3.0,
+	},
+	{
+		name: 'RUNMUS Gaming Headset',
+		image: '/images/headphones.jpg',
+		description:
+			'RUNMUS Gaming Headset Xbox One Headset with 7.1 Surround Sound, PS4 Headset with Noise Canceling Mic & LED Light, Compatible with PC, PS4, Xbox One...',
+		brand: 'Runmus',
+		category: 'Electronics',
+		price: 89.99,
+		countInStock: 3.0,
+		rating: 3.0,
+		numReviews: 0,
+	},
+	{
+		name: 'Sony Playstation 4 Pro White Version',
+		image: '/images/playstation.jpg',
+		description:
+			'The ultimate home entertainment center starts with PlayStation. Whether you are into gaming, HD movies, television, music',
+		brand: 'Sony',
+		category: 'Electronics',
+		price: 399.99,
+		countInStock: 0,
+		rating: 3.5,
+		numReviews: 1.0,
 	},
 ];
 export default products;
