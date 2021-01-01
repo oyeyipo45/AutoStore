@@ -10,19 +10,19 @@ See the live version here http://autostoreapp.herokuapp.com/
 v1.0
 
 Features
-  Create account
-  Add product to cart
-  Preview a product
-  See current cart products
-  Make Payment
-  See cart count and total price
+  1. Create account
+  2. Add product to cart
+  3. Preview a product
+  4. See current cart products
+  5. Make Payment
+  6. See cart count and total price
   
 ## Tech Stack]
 
-  React
-  React Strap
-  Redux
-  Node
-  Mongodb
-  JsonWebTokens
-  Express
+  1. React
+  2. React Strap
+  3. Redux
+  4. Node
+  5. Mongodb
+  6. JsonWebTokens
+  7. Express
