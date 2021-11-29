@@ -3,7 +3,7 @@
 
 An E commerce website with full functionalities
 
-See the live version here http://autostoreapp.herokuapp.com/
+See the live version here https://autostoreapp.herokuapp.com/
 
 ## Versions
 
